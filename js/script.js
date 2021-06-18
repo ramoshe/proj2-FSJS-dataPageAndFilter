@@ -4,6 +4,24 @@ FSJS Project 2 - Data Pagination and Filtering
 */
 
 /**
+ * This function will create a new elements with the supplied properties and values set
+ * 
+ * @param {string} type - the type of element (li, span, div, etc.)
+ * @param {string} prop1 - the first property tobe set
+ * @param {string} val1 - the desired value for the first property
+ * @param {string} prop2 - the second property to be set
+ * @param {string} val2 - the desired value for the second property
+ */
+function addElement(type, prop1, val1, prop2, val2) {
+   const element = document.createElement(type);
+   element[prop1] = val1;
+   if (prop2) {
+      element[prop2] = val2;
+   }
+   return element;
+}
+
+/**
  * This function will create and insert/append the elements needed to display a "page" of nine students
  * 
  * @param {array} list - the student data
@@ -15,32 +33,21 @@ function showPage(list, page) {
    const studentList = document.querySelector('.student-list');
    studentList.innerHTML = '';
    
-   //build student info card (list item)
    for (let i=0; i<list.length; i++) {
       if (i >= start && i < end) {
-         const li = document.createElement('li');
-         li.className = 'student-item cf';
+         const li = addElement('li', 'className', 'student-item cf');
          studentList.appendChild(li);
-            const details = document.createElement('div');
-            details.className = 'student-details';
+            const details = addElement('div', 'className', 'student-details');
             li.appendChild(details);
-               const img = document.createElement('img');
-               img.className = 'avatar';
-               img.src = list[i]["picture"]["large"];
+               const img = addElement('img', 'className', 'avatar', 'src', list[i]["picture"]["large"]);
                details.appendChild(img);
-               const name = document.createElement('h3');
-               name.textContent = list[i]["name"]["first"] +' '+ list[i]["name"]["last"];
+               const name = addElement('h3', 'textContent', list[i]["name"]["first"] +' '+ list[i]["name"]["last"]);
                details.appendChild(name);
-               const email = document.createElement('span');
-               email.className = 'email';
-               email.textContent = list[i]["email"];
+               const email = addElement('span', 'className', 'email', 'textContent', list[i]['email']);
                details.appendChild(email);
-            const joined = document.createElement('div');
-            joined.className = 'joined-details';
+            const joined = addElement('div', 'className', 'joined-details');
             li.appendChild(joined);
-               const date = document.createElement('span');
-               date.className = 'date';
-               date.textContent = list[i]["registered"]["date"];
+               const date = addElement('span', 'className', 'date', 'textContent', list[i]["registered"]["date"]);
                joined.appendChild(date);
       }
    }
@@ -61,9 +68,7 @@ function addPagination(list) {
    for (let i=1; i<=numberOfButtons; i++) {
       const li = document.createElement('li');
       linkList.appendChild(li);
-         const button = document.createElement('button');
-         button.type = 'button';
-         button.textContent = i;
+         const button = addElement('button', 'type', 'button', 'textContent', i);
          li.appendChild(button);
    }
    linkList.firstElementChild.firstElementChild.className = 'active';
