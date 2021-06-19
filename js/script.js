@@ -73,11 +73,12 @@ function addPagination(list) {
    }
    linkList.firstElementChild.firstElementChild.className = 'active';
 
-   //handler for button clicks
+   //handler for pagination button clicks
    linkList.addEventListener('click', (e) => {
       if (e.target.tagName === 'BUTTON') {
-         for (let i=0; i<=numberOfButtons-1; i++) {
-            linkList.children[i].firstElementChild.className = '';
+         let buttons = linkList.querySelectorAll('button');
+         for (let i=0; i<buttons.length; i++) {
+            buttons[i].className = '';
          }
          e.target.className = 'active';
          const page = parseInt(e.target.textContent);
@@ -88,3 +89,82 @@ function addPagination(list) {
 
 showPage(data, 1);
 addPagination(data);
+
+
+// * * * * * * * * * * * * * * EXTRA CREDIT CODE * * * * * * * * * * * * * *
+
+// Create and add a search bar
+const header = document.querySelector('.header')
+const searchBar = addElement('label', 'for', 'search', 'className', 'student-search')
+header.appendChild(searchBar);
+   const span = addElement('span', 'textContent', 'Search by name');
+   searchBar.appendChild(span);
+   const input = addElement('input', 'id', 'search', 'placeholder', 'Search by name...')
+   searchBar.appendChild(input);
+   const button = addElement('button', 'type', 'button');
+   searchBar.appendChild(button);
+      const img = addElement('img', 'src', 'img/icn-search.svg', 'alt', 'Search icon')
+      button.appendChild(img);
+
+/**
+ * This function performs the search but comparing input to data name items
+ * 
+ * @param {string} input - the input in the search bar
+ * @param {array} data - the array of student data
+ */
+function search(input, info) {
+   let matches = [];
+   for (let i=0; i<info.length; i++) {
+      let name = info[i]['name']['first'] + info[i]['name']['last'];
+      name = name.toLowerCase();
+      if (name.includes(input)) {
+         matches.push(info[i]);
+      }
+   }
+   return matches;
+}
+
+const searchButton = searchBar.querySelector('button');
+const searchInput = searchBar.querySelector('#search');
+
+// Handler for clicking search button
+searchButton.addEventListener('click', () => {
+   let input = searchInput.value.toLowerCase();
+   let matched = search(input, data);
+   let noResults = document.querySelector('.no-results');
+   
+   showPage(matched, 1);
+   addPagination(matched);
+
+   if (matched.length == 0) {
+      if (!noResults) {
+         noResults = addElement('h2', 'textContent', 'No results found', 'className', 'no-results');
+         searchBar.parentNode.insertAdjacentElement('afterend', noResults);
+      }
+   } else {
+      if (noResults) {
+         noResults.parentNode.removeChild(noResults);
+      }
+   }
+});
+
+// Handler for the search field
+// searchInput.addEventListener('input', () => {
+//    let input = searchInput.value.toLowerCase();
+//    let matched = search(input, data);
+//    let noResults = document.querySelector('.no-results');
+   
+//    showPage(matched, 1);
+//    addPagination(matched);
+
+//    if (matched.length == 0) {
+//       if (!noResults) {
+//          noResults = addElement('h2', 'textContent', 'No results found', 'className', 'no-results');
+//          searchBar.parentNode.insertAdjacentElement('afterend', noResults);
+//       }
+//    } else {
+//       if (noResults) {
+//          noResults.innerHTML = '';
+//       }
+//    }
+// });
