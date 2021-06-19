@@ -124,11 +124,10 @@ function search(input, info) {
    return matches;
 }
 
-const searchButton = searchBar.querySelector('button');
-const searchInput = searchBar.querySelector('#search');
-
-// Handler for clicking search button
-searchButton.addEventListener('click', () => {
+/**
+ * This function handles the search events. It does not have any parameters.
+ */
+function searchEventHandler() {
    let input = searchInput.value.toLowerCase();
    let matched = search(input, data);
    let noResults = document.querySelector('.no-results');
@@ -146,25 +145,10 @@ searchButton.addEventListener('click', () => {
          noResults.parentNode.removeChild(noResults);
       }
    }
-});
+}
 
-// Handler for the search field
-// searchInput.addEventListener('input', () => {
-//    let input = searchInput.value.toLowerCase();
-//    let matched = search(input, data);
-//    let noResults = document.querySelector('.no-results');
-   
-//    showPage(matched, 1);
-//    addPagination(matched);
+const searchButton = searchBar.querySelector('button');
+searchButton.addEventListener('click', searchEventHandler);
 
-//    if (matched.length == 0) {
-//       if (!noResults) {
-//          noResults = addElement('h2', 'textContent', 'No results found', 'className', 'no-results');
-//          searchBar.parentNode.insertAdjacentElement('afterend', noResults);
-//       }
-//    } else {
-//       if (noResults) {
-//          noResults.innerHTML = '';
-//       }
-//    }
-// });
+const searchInput = searchBar.querySelector('#search');
+searchInput.addEventListener('input', searchEventHandler);
