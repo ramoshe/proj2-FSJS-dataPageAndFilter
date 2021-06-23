@@ -64,27 +64,29 @@ function addPagination(list) {
    const linkList = document.querySelector('.link-list');
    linkList.innerHTML = '';
    
-   //create pagination buttons
-   for (let i=1; i<=numberOfButtons; i++) {
-      const li = document.createElement('li');
-      linkList.appendChild(li);
-         const button = addElement('button', 'type', 'button', 'textContent', i);
-         li.appendChild(button);
-   }
-   linkList.firstElementChild.firstElementChild.className = 'active';
-
-   //handler for pagination button clicks
-   linkList.addEventListener('click', (e) => {
-      if (e.target.tagName === 'BUTTON') {
-         let buttons = linkList.querySelectorAll('button');
-         for (let i=0; i<buttons.length; i++) {
-            buttons[i].className = '';
-         }
-         e.target.className = 'active';
-         const page = parseInt(e.target.textContent);
-         showPage(list, page)
+   if (numberOfButtons >= 2) {
+      //create pagination buttons
+      for (let i=1; i<=numberOfButtons; i++) {
+         const li = document.createElement('li');
+         linkList.appendChild(li);
+            const button = addElement('button', 'type', 'button', 'textContent', i);
+            li.appendChild(button);
       }
-   });
+      linkList.firstElementChild.firstElementChild.className = 'active';
+
+      //handler for pagination button clicks
+      linkList.addEventListener('click', (e) => {
+         if (e.target.tagName === 'BUTTON') {
+            let buttons = linkList.querySelectorAll('button');
+            for (let i=0; i<buttons.length; i++) {
+               buttons[i].className = '';
+            }
+            e.target.className = 'active';
+            const page = parseInt(e.target.textContent);
+            showPage(list, page)
+         }
+      });
+   }
 }
 
 showPage(data, 1);
