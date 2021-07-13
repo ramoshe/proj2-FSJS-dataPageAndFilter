@@ -112,7 +112,7 @@ header.appendChild(searchBar);
  * This function performs the search but comparing input to data name items
  * 
  * @param {string} input - the input in the search bar
- * @param {array} data - the array of student data
+ * @param {array} info - the array of student data
  */
 function search(input, info) {
    let matches = [];
