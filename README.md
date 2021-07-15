@@ -1,4 +1,4 @@
-# Project 2 - Data Pagination and Filtering
+# FSJS Project 2 - Data Pagination and Filtering
  The second project for the Full Stack JavaScript Techdegree program at Treehouse
  
  Project Description:
