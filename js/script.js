@@ -114,7 +114,17 @@ header.appendChild(searchBar);
  * @param {string} input - the input in the search bar
  * @param {array} info - the array of student data
  */
-    
+function search(input, info) {
+   let matches = [];
+   for (let i=0; i<info.length; i++) {
+      let name = info[i]['name']['first'] + info[i]['name']['last'];
+      name = name.toLowerCase();
+      if (name.includes(input)) {
+         matches.push(info[i]);
+      }
+   }
+   return matches;
+}
 
 /**
  * This function handles the search events. It does not have any parameters.
