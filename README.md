@@ -7,7 +7,7 @@
     1. Download the files: https://github.com/ramoshe/thp2-dataPagFilter/archive/refs/heads/main.zip
     2. Open the `index.html` file in your browser
  
-## Project Description:
+## Project Description
 *From Treehouse*
 In this project, you'll use a common web development technique known as “pagination” to enhance the usability of a web page.
 
